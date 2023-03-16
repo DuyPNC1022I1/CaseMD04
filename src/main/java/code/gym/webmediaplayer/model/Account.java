@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
     @Column(unique = true)
     private String username; //Cần validate unique
     @Size(min = 2, max = 30)

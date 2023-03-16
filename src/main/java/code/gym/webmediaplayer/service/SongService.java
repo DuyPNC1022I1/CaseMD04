@@ -44,8 +44,8 @@ public class SongService implements Icrud<Song>{
         return songRepository.findAllByNameContaining(name, pageable) ;
     }
     @Override
-    public Iterable<Song> getSongNewest() {
-        return songRepository.getSongNewest();
+    public Iterable<Song> findAllOrderByLocalDateDesc() {
+        return songRepository.findAllOrderByLocalDateDesc();
     }
 
     

@@ -14,7 +14,7 @@ import java.util.Set;
 public class Song {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
 
     @Column(unique = true, nullable = false)
     @NotBlank

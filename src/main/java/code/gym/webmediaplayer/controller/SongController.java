@@ -1,9 +1,6 @@
 package code.gym.webmediaplayer.controller;
 
-import code.gym.webmediaplayer.model.Album;
-import code.gym.webmediaplayer.model.Singer;
-import code.gym.webmediaplayer.model.Song;
-import code.gym.webmediaplayer.model.SongForm;
+import code.gym.webmediaplayer.model.*;
 import code.gym.webmediaplayer.service.Icrud;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -50,13 +47,23 @@ public class SongController {
     @Autowired
     private Icrud<Singer> singerService;
 
+    @Autowired
+    private Icrud<Account> accountService;
+
     @GetMapping
     public String findAll(@PageableDefault(value = 4) Pageable pageable, Model model) {
         model.addAttribute("songs", songService.findALl(pageable));
         model.addAttribute("singer", singerService.findALl());
         model.addAttribute("album", albumService.findALl());
-        return "admin/homepage";
+        return "HomePage";
     }
+
+    @GetMapping("/login")
+    public String loginForm(Model model) {
+        model.addAttribute("account", new Account());
+        return "login";
+    }
+
 
     @GetMapping("/create")
     public String create(Model model) {

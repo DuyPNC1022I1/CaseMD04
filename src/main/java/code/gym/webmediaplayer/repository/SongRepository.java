@@ -11,8 +11,7 @@ import org.springframework.stereotype.Repository;
 public interface SongRepository extends JpaRepository<Song, Long> {
     Page<Song> findAllByNameContaining(String name, Pageable pageable);
 
-    @Query(value = "select * from songs order by date desc", nativeQuery = true)
-    Iterable<Song> getSongNewest();
-
+    @Query("SELECT s FROM Song s ORDER BY s.date DESC")
+    Iterable<Song> findAllOrderByLocalDateDesc();
 
 }
