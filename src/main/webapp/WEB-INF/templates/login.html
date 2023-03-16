@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>C1022I1 - Nhóm 1</title>
+  <title>C1022I1 - Nhóm 01</title>
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;500&family=Quicksand:wght@300;400;500;600;700&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
   <style>
     @import url('https://rsms.me/inter/inter-ui.css');
@@ -172,13 +172,15 @@
         </defs>
         <path d="m 40,120.00016 239.99984,-3.2e-4 c 0,0 24.99263,0.79932 25.00016,35.00016 0.008,34.20084 -25.00016,35 -25.00016,35 h -239.99984 c 0,-0.0205 -25,4.01348 -25,38.5 0,34.48652 25,38.5 25,38.5 h 215 c 0,0 20,-0.99604 20,-25 0,-24.00396 -20,-25 -20,-25 h -190 c 0,0 -20,1.71033 -20,25 0,24.00396 20,25 20,25 h 168.57143" />
       </svg>
-      <form class="form" th:object="${account}" th:action="@{/songs/checkLogin}" method="get">
+      <form class="form" th:object="${account}" th:action="@{/songs/checkLogin}" method="post">
         <label>Email</label>
-        <input type="email" th:field="*{email}">
+        <input type="text" th:field="*{email}">
         <label for="password">Password</label>
-        <input type="password" id="password" th:field="*{password}" >
-        <input type="button" id="action" value="Submit">
+        <input type="text" id="password" th:field="*{password}" >
+        <input type="hidden" id="block" th:field="*{block}" th:value="${account.block}">
+        <button  id="action" type="submit">Submit</button>
       </form>
+      <h2 th:text="${blockDefault}" style="color: red"></h2>
     </div>
   </div>
 </div>

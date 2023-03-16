@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/songs")
@@ -51,7 +52,7 @@ public class SongController {
     private Icrud<Account> accountService;
 
     @GetMapping
-    public String findAll(@PageableDefault(value = 4) Pageable pageable, Model model) {
+    public String findAll(Model model) {
         model.addAttribute("songs", songService.findALl());
         model.addAttribute("singer", singerService.findALl());
         model.addAttribute("album", albumService.findALl());
@@ -59,13 +60,55 @@ public class SongController {
         return "HomePage";
     }
 
+    //Phan xu ly dieu huong Login
     @GetMapping("/login")
     public String loginForm(Model model) {
         model.addAttribute("account", new Account());
         return "login";
     }
 
+    @PostMapping("/checkLogin")
+    public String resultLogin(@ModelAttribute("account") Account account, Model model) {
+        List<Account> accounts = (List<Account>) accountService.findALl();
+        Boolean block = true;
+        String admin = "admin@gmail.com";
+        String passAdmin = "123";
+        for (Account a : accounts) {
+            if (a.getEmail().toUpperCase().equals(account.getEmail().toUpperCase())
+                    && a.getPassword().toUpperCase().equals(account.getPassword().toUpperCase())
+                    && block.equals(account.getBlock())) {
+                    return "redirect:/songs/userHome";
+            } else if (admin.toUpperCase().equals(account.getEmail().toUpperCase())
+                   && passAdmin.toUpperCase().equals(account.getPassword().toUpperCase())) {
+                return "redirect:/songs/adminHome";
+            } else {
+                model.addAttribute("messenger", "Login Fail! Recheck your account!");
+                return "login";
+            }
+        }
+        return "login";
+    }
 
+    @GetMapping("/userHome")
+    public String showUserHome(Model model) {
+        model.addAttribute("songs", songService.findALl());
+        return "userHome";
+    }
+
+    @GetMapping("/adminHome")
+    public String showAdminHome(Model model, @PageableDefault(value = 4) Pageable pageable) {
+        model.addAttribute("songs", songService.findALl(pageable));
+        return "adminHome";
+    }
+
+    @GetMapping("/managerUser")
+    public String managerUser(Model model) {
+        model.addAttribute("users", accountService.findALl());
+        return "adminHome";
+    }
+
+
+    //Phan xu ly edit song
     @GetMapping("/create")
     public String create(Model model) {
         SongForm songForm = new SongForm();
@@ -81,8 +124,8 @@ public class SongController {
             return "createForm";
         }
         //Avatar
-        MultipartFile fileUpload1 = sf.getAvatar(); // Lay ve file media
-        String avatarPath = fileUpload1.getOriginalFilename(); //Lay ra ten cua file
+        MultipartFile fileUpload1 = sf.getAvatar();
+        String avatarPath = fileUpload1.getOriginalFilename();
         FileCopyUtils.copy(fileUpload1.getBytes(), new File(imagePath + avatarPath)); //Copy vao thu muc
         //File Mp3
         MultipartFile fileUpload2 = sf.getSong();
@@ -93,7 +136,7 @@ public class SongController {
         Song song = new Song(sf.getId(), sf.getName(), sf.getPrice(), java.time.LocalDate.now(), sf.getDescription(), sf.getSinger(), sf.getAlbum(), avatarPath, songPath);
         songService.save(song);
         model.addAttribute("songs", songService.findALl(pageable));
-        return "redirect:/songs";
+        return "redirect:/songs/adminHome";
     }
 
     @GetMapping("/update/{id}")
@@ -104,6 +147,7 @@ public class SongController {
         model.addAttribute("songForm", s);
         return "createForm";
     }
+
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable("id") Long id) {
         songService.delete(id);

@@ -1,11 +1,4 @@
-
-/*body {*/
-/*    background: -webkit-gradient(linear, right top, left top, from(#7700aa), to(#8800ff));*/
-/*    background: linear-gradient(to left, #7700aa, #8800ff);*/
-/*    text-align:center;*/
-/*    color:#fff;*/
-/*}*/
-
+/* Global Reset */
 .container-audio {
     width: 66%;
     height: auto;
@@ -16,7 +9,9 @@
     margin: 20px auto;
     overflow: hidden;
 }
-
+audio:nth-child(2), audio:nth-child(4), audio:nth-child(6) {
+    margin: 0;
+}
 .container-audio .colum1 {
     width: 23px;
     height: 5em;
