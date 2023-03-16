@@ -42,7 +42,7 @@ public class AccountService implements Icrud<Account> {
 
     @Override
     public Page<Account> findAllByNameContaining(String name, Pageable pageable) {
-        return accountRepository.findAllByNameContaining(name, pageable);
+        return null;
     }
 
     @Override
