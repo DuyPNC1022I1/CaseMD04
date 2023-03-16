@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -162,10 +163,6 @@ public class SongController {
         model.addAttribute("songs", songService.findALl(pageable));
         return "redirect:/songs/userHome";
     }
-
-
-
-
 
     //Phan xu ly edit song
     @GetMapping("/create")

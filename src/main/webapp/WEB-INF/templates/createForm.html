@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="container" style="width: 40%">
-    <form th:action="@{/songs/saveByUser}" method="post" th:object="${songForm}" enctype="multipart/form-data">
+    <form th:action="@{/songs/save}" method="post" th:object="${songForm}" enctype="multipart/form-data">
         <div style="text-align: center"><h1>Form input</h1></div>
         <div class="mb-3">
             <input type="hidden" th:value="${songForm.id}" th:field="*{id}" class="form-control" aria-describedby="idHelp">
@@ -18,10 +18,12 @@
             <label for="exampleInputName" class="form-label">Name</label>
             <input type="text" th:field="*{name}" class="form-control" id="exampleInputName"
                    aria-describedby="nameHelp">
+            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Err Name</p>
         </div>
         <div class="mb-3">
             <label for="exampleInputPrice" class="form-label">Price</label>
             <input type="text" th:field="*{price}" class="form-control" id="exampleInputPrice">
+            <p th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Err Name</p>
         </div>
         <div class="mb-3">
             <label for="exampleInputDescription" class="form-label">Description<span

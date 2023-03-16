@@ -3,9 +3,7 @@ package code.gym.webmediaplayer.model;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -16,13 +14,11 @@ public class Song {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     @NotBlank
     private String name;
 
-    @Column(columnDefinition = "double default 0.0")
-    @DecimalMin(value = "0.0", inclusive = true, message = "Price must be greater than or equal to 0")
-    @NotNull
+    @Min(0)
     private Double price;
 
     @DateTimeFormat
@@ -45,7 +41,7 @@ public class Song {
     }
 
 
-    public Song(String name, Double price, LocalDate date, String description, Set<Singer> singer, Set<Album> album, String avatarPath, String songPath) {
+    public Song(@NotBlank String name,@Min(0) Double price, LocalDate date, String description, Set<Singer> singer, Set<Album> album, String avatarPath, String songPath) {
         this.name = name;
         this.price = price;
         this.date = date;
@@ -56,7 +52,7 @@ public class Song {
         this.songPath = songPath;
     }
 
-    public Song(Long id, String name, Double price, LocalDate date, String description, Set<Singer> singer, Set<Album> album, String avatarPath, String songPath) {
+    public Song(Long id,@NotBlank String name,@Min(0) Double price, LocalDate date, String description, Set<Singer> singer, Set<Album> album, String avatarPath, String songPath) {
         this.id = id;
         this.name = name;
         this.price = price;
