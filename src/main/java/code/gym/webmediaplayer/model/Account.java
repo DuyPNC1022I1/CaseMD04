@@ -16,6 +16,7 @@ public class Account {
     private String password; //Cần validate 6-8 ký tự
     @Size(min = 10, max = 12)
     private String phone; //Cần validate 12 ky tu
+    @Column(unique = true)
     @Email
     private String email; //Cần validate @
     private String address;

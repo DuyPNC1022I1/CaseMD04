@@ -68,11 +68,18 @@ public class SongController {
     }
 
     @PostMapping("/checkLogin")
-    public String resultLogin(@ModelAttribute("account") Account account, Model model) {
+    public String resultLogin(@ModelAttribute("account") Account account, Model model, Pageable pageable) {
         List<Account> accounts = (List<Account>) accountService.findALl();
         Boolean block = true;
         String admin = "admin@gmail.com";
         String passAdmin = "123";
+        for (Account a:accounts) {
+            if(a.getEmail().equals(account.getEmail())){
+                account.setBlock(a.getBlock());
+            } else {
+                account.setBlock(false);
+            }
+        }
         for (Account a : accounts) {
             if (a.getEmail().toUpperCase().equals(account.getEmail().toUpperCase())
                     && a.getPassword().toUpperCase().equals(account.getPassword().toUpperCase())
@@ -123,6 +130,7 @@ public class SongController {
         accountService.save(account);
         return "redirect:/songs/managerUser";
     }
+
 
 
     //Phan xu ly edit song
