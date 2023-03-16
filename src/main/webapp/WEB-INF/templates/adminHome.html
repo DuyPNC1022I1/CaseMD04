@@ -111,10 +111,10 @@
                     </audio>
                 </td>
                 <td><a th:href="@{/songs/update/{id}(id=${s.id})}">
-                    <button class="btn btn-primary">Update</button>
+                    <button onclick="alert('Do you want to Update???')" class="btn btn-primary">Update</button>
                 </a></td>
                 <td><a th:href="@{/songs/delete/{id}(id=${s.id})}">
-                    <button class="btn btn-danger">Delete</button>
+                    <button onclick="alert('Do you want to Delete???')" class="btn btn-danger">Delete</button>
                 </a></td>
             </tr>
             </tbody>

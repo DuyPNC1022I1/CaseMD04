@@ -27,17 +27,17 @@ public class AccountService implements Icrud<Account> {
 
     @Override
     public Optional<Account> finById(Long id) {
-        return Optional.empty();
+        return accountRepository.findById(id);
     }
 
     @Override
     public void save(Account account) {
-
+        accountRepository.save(account);
     }
 
     @Override
     public void delete(Long id) {
-
+        accountRepository.deleteById(id);
     }
 
     @Override

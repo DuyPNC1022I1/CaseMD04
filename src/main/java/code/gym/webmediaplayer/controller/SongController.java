@@ -101,10 +101,27 @@ public class SongController {
         return "adminHome";
     }
 
+    //Manger user
     @GetMapping("/managerUser")
     public String managerUser(Model model) {
         model.addAttribute("users", accountService.findALl());
-        return "adminHome";
+        return "userManager";
+    }
+
+    //Block user
+    @GetMapping("/blockUser/{id}")
+    public String blockUser(@PathVariable("id") Long id, Model model) {
+        Account account = accountService.finById(id).get();
+        account.setBlock(false);
+        accountService.save(account);
+        return "redirect:/songs/managerUser";
+    }
+    @GetMapping("/unlockUser/{id}")
+    public String unlockUser(@PathVariable("id") Long id, Model model) {
+        Account account = accountService.finById(id).get();
+        account.setBlock(true);
+        accountService.save(account);
+        return "redirect:/songs/managerUser";
     }
 
 
@@ -151,7 +168,7 @@ public class SongController {
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable("id") Long id) {
         songService.delete(id);
-        return "redirect:/songs";
+        return "redirect:/songs/adminHome";
     }
 
     @GetMapping("/findByName")
