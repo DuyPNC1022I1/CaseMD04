@@ -5,6 +5,7 @@
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/bootstrap-icons.min.css">
   <link rel="stylesheet" type="text/css" href="css/custom.css">
+  <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
 
@@ -14,7 +15,7 @@
   <nav class="mainnav shadow navbar-expand-lg navbar navbar-dark bg-dark fixed-top" style="min-width: 350px">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
-        <i class="bi bi-soundwave"></i> MEDIA PLAYER
+        <i class="bi bi-soundwave"></i> MUSIC WEB
         <div style="font-size: 13px"><marquee>C1022I1- CodeGym</marquee></div>
       </a>
 
@@ -104,14 +105,13 @@
     <div class="tab-content" id="pills-tabContent">
       <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0" style="height: 250px; overflow: auto">
 
-        <!--Phan hien thi noi dung cac list bai hat-->
+        <!--List All Song-->
         <div class="song-small m-1 ms-4 col-md-6 row align-items-center" th:each="s,sStat: ${songs}">
           <div class="col-1 h3" th:text="${sStat.index + 1}"></div>
           <div class="col d-flex">
             <img class="song-small-img rounded m-1" style="height: 70px; width: 70px" th:src="@{'/i/' + ${s.avatarPath}}">
             <div class="ms-1">
               <div th:text="${s.name}"></div>
-<!--              <div th:text="${s.description}" style="font-size: 15px"></div>-->
               <div class="play-song" style="height: 20px; width: 30px">
                 <audio controls style="height: 30px; margin-top: 10px">
                   <source th:src="@{'/media/' + ${s.songPath}}">
@@ -121,7 +121,8 @@
           </div>
           <div class="col-2">Play> <i class="bi bi-play"></i></div>
         </div>
-        <!--end small song item-->
+        <!--End All Song-->
+
 
       </div>
       <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
@@ -254,16 +255,88 @@
           <div class="col-2">05:00 <i class="bi bi-play"></i></div>
         </div>
         <!--end small song item-->
-
-
       </div>
+
+<!--      hiển thị sóng-->
+      <div class="container-audio" style="background-color: rgba(254,254,254,0.1)">
+        <div class="colum1">
+          <div class="row"></div>
+        </div>
+        <div class="colum1">
+          <div class="row"></div>
+        </div>
+        <div class="colum1">
+          <div class="row"></div>
+        </div>
+        <div class="colum1">
+          <div class="row"></div>
+        </div>
+        <div class="colum1">
+          <div class="row"></div>
+        </div>
+        <div class="colum1">
+          <div class="row"></div>
+        </div>
+        <div class="colum1">
+          <div class="row"></div>
+        </div>
+        <div class="colum1">
+          <div class="row"></div>
+        </div>
+        <div class="colum1">
+          <div class="row"></div>
+        </div>
+        <div class="colum1">
+          <div class="row"></div>
+        </div>
+        <div class="colum1">
+          <div class="row"></div>
+        </div>
+        <div class="colum1">
+          <div class="row"></div>
+        </div>
+        <div class="colum1">
+          <div class="row"></div>
+        </div>
+        <div class="colum1">
+          <div class="row"></div>
+        </div>
+        <div class="colum1">
+          <div class="row"></div>
+        </div>
+        <div class="colum1">
+          <div class="row"></div>
+        </div>
+        <div class="colum1">
+          <div class="row"></div>
+        </div>
+        <div class="colum1">
+          <div class="row"></div>
+        </div>
+        <div class="colum1">
+          <div class="row"></div>
+        </div>
+        <div class="colum1">
+          <div class="row"></div>
+        </div>
+        <div class="colum1">
+          <div class="row"></div>
+        </div>
+        <div class="colum1">
+          <div class="row"></div>
+        </div>
+        <div class="colum1">
+          <div class="row"></div>
+        </div>
+      </div>
+<!--      Kết thúc hiển thị sóng-->
     </div>
-
-
   </div>
   <!--end hero area-->
 
-  <h5 class="song-category-title mx-5 pt-4">Rock Music <small class="float-end"><a href="">View more <i class="bi bi-box-arrow-up-right"></i></a></small></h5>
+
+
+  <h5 class="song-category-title mx-5 pt-4">ALBUM <small class="float-end"><a href="">View more <i class="bi bi-box-arrow-up-right"></i></a></small></h5>
 
   <!-- start category area-->
   <section class="pt-2 p-4 mx-5 d-flex justify-content-center" style="flex-wrap: wrap;">
@@ -427,7 +500,7 @@
   </section>
   <!-- end category area-->
 
-  <h5 class="song-category-title mx-5 pt-4">Country Music <small class="float-end"><a href="">View more <i class="bi bi-box-arrow-up-right"></i></a></small></h5>
+  <h5 class="song-category-title mx-5 pt-4">SINGER <small class="float-end"><a href="">View more <i class="bi bi-box-arrow-up-right"></i></a></small></h5>
 
   <!-- start category area-->
   <section class="pt-2 p-4 mx-5 d-flex justify-content-center" style="flex-wrap: wrap;">
@@ -554,7 +627,6 @@
 
   </section>
   <!-- end category area-->
-
 
 </main><!--end main area-->
 

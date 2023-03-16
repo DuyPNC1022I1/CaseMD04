@@ -55,7 +55,7 @@ public class SongController {
         model.addAttribute("songs", songService.findALl(pageable));
         model.addAttribute("singer", singerService.findALl());
         model.addAttribute("album", albumService.findALl());
-        return "HomePage";
+        return "admin/homepage";
     }
 
     @GetMapping("/create")
