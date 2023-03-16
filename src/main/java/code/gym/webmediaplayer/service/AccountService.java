@@ -46,7 +46,7 @@ public class AccountService implements Icrud<Account> {
     }
 
     @Override
-    public Iterable<Song> findAllOrderByLocalDateDesc() {
+    public Iterable<Account> findAllOrderByLocalDateDesc() {
         return null;
     }
 }

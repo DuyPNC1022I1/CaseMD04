@@ -13,5 +13,5 @@ public interface Icrud<T>{
     void save(T t);
     void delete(Long id);
     Page<T> findAllByNameContaining(String name, Pageable pageable);
-    Iterable<Song> findAllOrderByLocalDateDesc();
+    Iterable<T> findAllOrderByLocalDateDesc();
 }

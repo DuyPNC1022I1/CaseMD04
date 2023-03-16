@@ -46,7 +46,7 @@ public class SingerService implements Icrud<Singer>{
     }
 
     @Override
-    public Iterable<Song> findAllOrderByLocalDateDesc() {
+    public Iterable<Singer> findAllOrderByLocalDateDesc() {
         return null;
     }
 }

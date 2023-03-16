@@ -44,7 +44,7 @@ public class AlbumService implements Icrud<Album> {
     }
 
     @Override
-    public Iterable<Song> findAllOrderByLocalDateDesc() {
+    public Iterable<Album> findAllOrderByLocalDateDesc() {
         return null;
     }
 }

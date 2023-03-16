@@ -52,9 +52,10 @@ public class SongController {
 
     @GetMapping
     public String findAll(@PageableDefault(value = 4) Pageable pageable, Model model) {
-        model.addAttribute("songs", songService.findALl(pageable));
+        model.addAttribute("songs", songService.findALl());
         model.addAttribute("singer", singerService.findALl());
         model.addAttribute("album", albumService.findALl());
+        model.addAttribute("songsByDateESC", songService.findAllOrderByLocalDateDesc());
         return "HomePage";
     }
 
