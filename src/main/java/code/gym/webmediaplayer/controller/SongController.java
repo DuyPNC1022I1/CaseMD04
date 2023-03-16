@@ -158,7 +158,7 @@ public class SongController {
     public String findByName(Model model, @RequestParam("search") String name, Pageable pageable) {
         Page<Song> songs = songService.findAllByNameContaining(name, pageable);
         model.addAttribute("songs", songs);
-        return "admin/homepage";
+        return "adminHome";
     }
 
     //HandlerException
