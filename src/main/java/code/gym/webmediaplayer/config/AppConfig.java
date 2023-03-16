@@ -58,7 +58,8 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
     @Value("${js}")
     private String js;
 
-
+    @Value("${templates}")
+    private String templates;
 
     private ApplicationContext applicationContext;
 
@@ -149,7 +150,6 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
                 .addResourceLocations("file:" + js);
         registry.addResourceHandler("/images/**")
                 .addResourceLocations("file:" + images);
-
     }
 
     @Bean(name = "multipartResolver")
@@ -159,10 +159,4 @@ public class AppConfig implements WebMvcConfigurer, ApplicationContextAware {
         return resolver;
     }
 
-//    //Convert String -> LocalDate
-//    @Override
-//    public void addFormatters(FormatterRegistry registry) {
-//        StringToLocalDateConverter stringToLocalDateConverter = new StringToLocalDateConverter("MM/dd/yyyy");
-//        registry.addConverter(stringToLocalDateConverter);
-//    }
 }
