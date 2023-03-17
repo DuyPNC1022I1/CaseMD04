@@ -52,7 +52,7 @@
                 <option th:each="album : ${albums}" th:value="${album.id}" th:text="${album.name}"></option>
             </select>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary" onclick="alert('CONFIRM TO CREATE NEW SONG!')">Submit</button>
     </form>
 </div>
 

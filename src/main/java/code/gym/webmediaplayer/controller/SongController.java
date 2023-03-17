@@ -126,6 +126,12 @@ public class SongController {
         return "redirect:/songs/managerUser";
     }
 
+    @GetMapping("/deleteUser/{id}")
+    public String deleteUser(@PathVariable("id") Long id) {
+        accountService.delete(id);
+        return "redirect:/songs/managerUser";
+    }
+
     @GetMapping("/createUser")
     public String createUser(Model model) {
         Account account = new Account();

@@ -84,7 +84,7 @@
                 <th scope="col">Phone</th>
                 <th scope="col">Address</th>
                 <th scope="col">Block Status</th>
-                <th scope="col" colspan="2">Action</th>
+                <th scope="col" colspan="3">Action</th>
             </tr>
             </thead>
             <tbody>
@@ -97,10 +97,13 @@
                 <td scope="row" th:text="${u.address}"></td>
                 <td scope="row" th:text="${u.block}"></td>
                 <td><a th:href="@{/songs/blockUser/{id}(id=${u.id})}">
-                    <button onclick="alert('Do you want block this user???')" class="btn btn-danger">Block User</button>
+                    <button onclick="alert('Do you want block this user???')" class="btn btn-warning">Block User</button>
                 </a></td>
                 <td><a th:href="@{/songs/unlockUser/{id}(id=${u.id})}">
                     <button onclick="alert('Do you want unblock this user???')" class="btn btn-success">Unlock User</button>
+                </a></td>
+                <td><a th:href="@{/songs/deleteUser/{id}(id=${u.id})}">
+                    <button onclick="alert('Do you want delete this user???')" class="btn btn-danger">Delete User</button>
                 </a></td>
             </tr>
             </tbody>
