@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
@@ -74,8 +75,8 @@ public class SongController {
         Boolean block = true;
         String admin = "admin@gmail.com";
         String passAdmin = "123";
-        for (Account a:accounts) {
-            if(account.getEmail().equals(a.getEmail())){
+        for (Account a : accounts) {
+            if (account.getEmail().equals(a.getEmail())) {
                 account.setBlock(a.getBlock());
                 break;
             } else {
@@ -86,10 +87,11 @@ public class SongController {
             if (a.getEmail().equals(account.getEmail()) && a.getPassword().equals(account.getPassword()) && block.equals(account.getBlock())) {
                 return "redirect:/songs/userHome";
             } else if (admin.toUpperCase().equals(account.getEmail().toUpperCase())
-                   && passAdmin.toUpperCase().equals(account.getPassword().toUpperCase())) {
+                    && passAdmin.toUpperCase().equals(account.getPassword().toUpperCase())) {
                 return "redirect:/songs/adminHome";
             }
         }
+        model.addAttribute("message", "Login Fail! Re-Enter your information");
         return "login";
     }
 
@@ -115,6 +117,7 @@ public class SongController {
         accountService.save(account);
         return "redirect:/songs/managerUser";
     }
+
     @GetMapping("/unlockUser/{id}")
     public String unlockUser(@PathVariable("id") Long id, Model model) {
         Account account = accountService.finById(id).get();
@@ -122,6 +125,29 @@ public class SongController {
         accountService.save(account);
         return "redirect:/songs/managerUser";
     }
+
+    @GetMapping("/createUser")
+    public String createUser(Model model) {
+        Account account = new Account();
+        account.setBlock(true);
+        model.addAttribute("user", account);
+        return "registerForm";
+    }
+
+    @PostMapping("/saveUser")
+    public String saveUser(@ModelAttribute("user") Account account, Model model) {
+        try {
+            model.addAttribute("message", "Complete register!!!");
+            accountService.save(account);
+        } catch (ConstraintViolationException e) {
+            model.addAttribute("message", "Register Fail! Please your data format!!!");
+            return "registerForm";
+        }
+
+        return "redirect:/songs/login";
+    }
+
+    //Phan dieu huong user
     @GetMapping("/userHome")
     public String showUserHome(Model model, @PageableDefault(value = 4) Pageable pageable) {
         model.addAttribute("songs", songService.findALl(pageable));
@@ -134,6 +160,7 @@ public class SongController {
         model.addAttribute("songs", songs);
         return "userHome";
     }
+
     @GetMapping("/createByUser")
     public String createByUser(Model model) {
         SongForm songForm = new SongForm();
@@ -144,22 +171,37 @@ public class SongController {
     }
 
     @PostMapping("/saveByUser")
-    public String saveByUser(@ModelAttribute("songForm") SongForm sf, BindingResult bindingResult, Model model, Pageable pageable) throws IOException {
+    public String saveByUser(@ModelAttribute("songForm") SongForm sf, BindingResult bindingResult, Model model, Pageable pageable){
         if (bindingResult.hasErrors()) {
             return "createFormByUser";
         }
         //Avatar
         MultipartFile fileUpload1 = sf.getAvatar();
         String avatarPath = fileUpload1.getOriginalFilename();
-        FileCopyUtils.copy(fileUpload1.getBytes(), new File(imagePath + avatarPath)); //Copy vao thu muc
+        try {
+            FileCopyUtils.copy(fileUpload1.getBytes(), new File(imagePath + avatarPath));
+        }catch (IOException e){
+        model.addAttribute("message", "Fail to create! Re-enter information to create new!");
+        return "createForm";
+        }
         //File Mp3
         MultipartFile fileUpload2 = sf.getSong();
         String songPath = fileUpload2.getOriginalFilename();
-        FileCopyUtils.copy(fileUpload2.getBytes(), new File(fileSongPath + songPath));
+        try {
+            FileCopyUtils.copy(fileUpload2.getBytes(), new File(fileSongPath + songPath));
+        } catch (IOException e) {
+            model.addAttribute("message", "Fail to create! Re-enter information to create new!");
+            return "createForm";
+        }
 
         // save song here...
         Song song = new Song(sf.getId(), sf.getName(), sf.getPrice(), java.time.LocalDate.now(), sf.getDescription(), sf.getSinger(), sf.getAlbum(), avatarPath, songPath);
-        songService.save(song);
+        try {
+            songService.save(song);
+        } catch (ConstraintViolationException e) {
+            model.addAttribute("message", "Fail to create! Re-enter information to create new!");
+            return "createFormByUser";
+        }
         model.addAttribute("songs", songService.findALl(pageable));
         return "redirect:/songs/userHome";
     }
@@ -175,19 +217,28 @@ public class SongController {
     }
 
     @PostMapping("/save")
-    public String saveEmployee(@ModelAttribute("songForm") SongForm sf, BindingResult bindingResult, Model model, Pageable pageable) throws IOException {
+    public String saveEmployee(@ModelAttribute("songForm") SongForm sf, BindingResult bindingResult, Model model, Pageable pageable) {
         if (bindingResult.hasErrors()) {
             return "createForm";
         }
         //Avatar
         MultipartFile fileUpload1 = sf.getAvatar();
         String avatarPath = fileUpload1.getOriginalFilename();
-        FileCopyUtils.copy(fileUpload1.getBytes(), new File(imagePath + avatarPath)); //Copy vao thu muc
+        try {
+            FileCopyUtils.copy(fileUpload1.getBytes(), new File(imagePath + avatarPath));
+        } catch (IOException e) {
+            model.addAttribute("message", "Fail to create! Re-enter information to create new!");
+            return "createForm";
+        }
         //File Mp3
         MultipartFile fileUpload2 = sf.getSong();
         String songPath = fileUpload2.getOriginalFilename();
-        FileCopyUtils.copy(fileUpload2.getBytes(), new File(fileSongPath + songPath));
-
+        try {
+            FileCopyUtils.copy(fileUpload2.getBytes(), new File(fileSongPath + songPath));
+        } catch (IOException e){
+            model.addAttribute("message", "Fail to create! Re-enter information to create new!");
+            return "createForm";
+        }
         // save song here...
         Song song = new Song(sf.getId(), sf.getName(), sf.getPrice(), java.time.LocalDate.now(), sf.getDescription(), sf.getSinger(), sf.getAlbum(), avatarPath, songPath);
         songService.save(song);

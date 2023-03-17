@@ -12,7 +12,7 @@ public class Account {
     private Long id;
     @Column(unique = true)
     private String username; //Cần validate unique
-    @Size(min = 2, max = 30)
+    @Size(min = 6, max = 8)
     private String password; //Cần validate 6-8 ký tự
     @Size(min = 10, max = 12)
     private String phone; //Cần validate 12 ky tu
@@ -21,13 +21,13 @@ public class Account {
     private String email; //Cần validate @
     private String address;
     private Boolean block;
-    @ManyToOne
-    private Role role;
+//    @ManyToOne
+//    private Role role;
 
     public Account() {
     }
 
-    public Account(Long id, String username, String password, String phone, String email, String address, Boolean block, Role role) {
+    public Account(Long id, String username, String password, String phone, String email, String address, Boolean block) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -35,7 +35,6 @@ public class Account {
         this.email = email;
         this.address = address;
         this.block = block;
-        this.role = role;
     }
 
     public Long getId() {
@@ -94,11 +93,11 @@ public class Account {
         this.block = block;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
+//    public Role getRole() {
+//        return role;
+//    }
+//
+//    public void setRole(Role role) {
+//        this.role = role;
+//    }
 }

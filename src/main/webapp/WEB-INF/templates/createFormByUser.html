@@ -8,6 +8,9 @@
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
+<th:block th:if="${message}">
+    <p style="color:red; font-size: 22px" th:text="${message}"></p>
+</th:block>
 <div class="container" style="width: 40%">
     <form th:action="@{/songs/saveByUser}" method="post" th:object="${songForm}" enctype="multipart/form-data">
         <div style="text-align: center"><h1>Form input</h1></div>
@@ -21,7 +24,7 @@
         </div>
         <div class="mb-3">
             <label for="exampleInputPrice" class="form-label">Price</label>
-            <input type="text" th:field="*{price}" class="form-control" id="exampleInputPrice">
+            <input type="number" th:field="*{price}" class="form-control" id="exampleInputPrice">
         </div>
         <div class="mb-3">
             <label for="exampleInputDescription" class="form-label">Description<span
