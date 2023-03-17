@@ -25,6 +25,7 @@
         <div class="mb-3">
             <label for="exampleInputPrice" class="form-label">Price</label>
             <input type="number" th:field="*{price}" class="form-control" id="exampleInputPrice">
+            <span><i>Price >= 0</i></span>
         </div>
         <div class="mb-3">
             <label for="exampleInputDescription" class="form-label">Description<span
@@ -52,7 +53,7 @@
                 <option th:each="album : ${albums}" th:value="${album.id}" th:text="${album.name}"></option>
             </select>
         </div>
-        <button type="submit" class="btn btn-primary" <button type="submit" class="btn btn-primary" onclick="alert('CONFIRM TO CREATE NEW SONG!')">Submit</button>
+        <button type="submit" class="btn btn-primary" onclick="alert('CONFIRM TO CREATE NEW SONG!')">Submit</button>
     </form>
 </div>
 

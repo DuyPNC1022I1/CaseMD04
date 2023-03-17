@@ -23,20 +23,24 @@
         <div class="mb-3">
             <label for="password" class="form-label">Password</label>
             <input type="password" th:field="*{password}" class="form-control" id="password">
+            <span><i>Password: 6~8 characters</i>></span>
 <!--            <p th:if="${#fields.hasErrors('price')}" th:errors="*{password}">Err password</p>-->
         </div>
         <div class="mb-3">
             <label for="confirm-password" class="form-label">Confirm Password</label>
             <input type="password" class="form-control" id="confirm-password" required oninput="check(this)">
+            <span><i>Please re-enter password</i></span>
         </div>
         <div class="mb-3">
             <label for="Phone" class="form-label">Phone</label>
             <input type="number" th:field="*{phone}" class="form-control" id="Phone">
+            <span><i>Phone: 10~12 characters</i></span>
 <!--            <p th:if="${#fields.hasErrors('price')}" th:errors="*{password}">Err password</p>-->
         </div>
         <div class="mb-3">
             <label for="Email" class="form-label">Email</label>
             <input type="email" th:field="*{email}" class="form-control" id="Email">
+            <span><i>Example: a@gmail.com</i></span>
         </div>
         <div class="mb-3">
             <label for="address" class="form-label">Address</label>
